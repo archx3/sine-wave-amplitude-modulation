@@ -17,7 +17,7 @@
   <meta name="theme-color" content="#fafafa">
   <style>
     :root {
-      --padding : 25px;
+      --padding : 5px;
     }
     .container {
       position: relative;
@@ -30,6 +30,8 @@
       display: flex;
       justify-content: space-between;
     }
+
+
 
     .preview {
       width: calc(50% - var(--padding) / 2);
@@ -47,6 +49,11 @@
       object-fit: cover;
     }
 
+    .paper {
+        height: 898px;
+        width: 898px;
+    }
+
   </style>
 </head>
 
@@ -55,7 +62,7 @@
     <div class="image-preview preview">
       <img src="img/grg-in-osu.jpg" alt="George in San Francisco" id="grg-in-sf"/>
     </div>
-    <canvas class="canvas preview" id="paper"></canvas>
+    <canvas class="canvas preview paper" id="paper"></canvas>
   </div>
   <script src="js/manacles.js"></script>
   <script src="js/main.js"></script>

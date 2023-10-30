@@ -29,9 +29,14 @@ var poly = function poly (x, y, sides, r) {
  * @param {number} w - The desired width of the canvas.
  * @param {number} h - The desired height of the canvas.
  */
-const setCanvasSize = function setCanvasSize (paper, w, h) {
-  paper.setAttribute('width', w);
-  paper.setAttribute('height', h);
+const setCanvasSize = function setCanvasSize (paper, w = null, h = null) {
+  if (w && h) {
+    paper.width = w;
+    paper.height = h;
+  } else {
+    paper.width = paper.clientWidth;
+    paper.height = paper.clientHeight;
+  }
 };
 
 var fill = function fill (ctx) {
@@ -82,8 +87,6 @@ var stroke = function stroke (ctx, r = 0, g = 0, b = 0, a = 255) {
   ctx.strokeStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
   ctx.beginPath();
   ctx.stroke();
-  console.log(ctx.strokeStyle);
-
 };
 
 var noStroke = function noStroke (ctx) {
