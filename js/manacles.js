@@ -94,13 +94,13 @@ var strokeWeight = function strokeWeight (ctx, weight) {
   ctx.lineWidth = weight;
 };
 
-var line = function line (pen, v, v2) {
-  pen.beginPath();
-  pen.moveTo.apply(pen, _toConsumableArray(v));
-  pen.lineTo.apply(pen, _toConsumableArray(v2));
-  pen.stroke();
-  pen.closePath();
-};
+// var line = function line (pen, v, v2) {
+//   pen.beginPath();
+//   pen.moveTo.apply(pen, _toConsumableArray(v));
+//   pen.lineTo.apply(pen, _toConsumableArray(v2));
+//   pen.stroke();
+//   pen.closePath();
+// };
 
 /**
  * Draws a line between two points on a given canvas using the provided pen.
@@ -178,6 +178,9 @@ var rect = function rect (ctx, pos, w, h) {
 
 /**
  * Linearly interpolates between two values.
+ * For instance, if you want to interpolate between 0 and 100, you would call lerp(0, 100, t) where t is a value between 0 and 1.
+ * What this does is return a value that is t percent between 0 and 100.
+ * So if t is 0, the result is 0. If t is 0.5, the result is 50. If t is 1, the result is 100.
  *
  * @param {number} a - The starting value.
  * @param {number} b - The ending value.
@@ -185,11 +188,13 @@ var rect = function rect (ctx, pos, w, h) {
  * @returns {number} - The interpolated value.
  */
 const lerp = function lerpf (a, b, t) {
-  return a + t * (b - a);
+  return a + (b - a) * t;
 };
 
 /**
  * Maps a value from one range to another range.
+ * For instance, if you want to map a value from the range [0, 100] to [0, 1], you would call mapRange(value, 0, 100, 0, 1).
+ *
  * @param {number} value - The value to be mapped.
  * @param {number} u - The lower bound of the initial range.
  * @param {number} v - The upper bound of the initial range.
@@ -216,7 +221,7 @@ var polute = function polute () {
   window.noFill = noFill;
   window.noStroke = noStroke;
   window.strokeWeight = strokeWeight;
-  window.line = line;
+  // window.line = line;
   window.ellipse = ellipse;
   // window.arc = arc;
   window.drawPoly = drawPoly;
@@ -235,7 +240,7 @@ window.microcan = {
   noFill: noFill,
   noStroke: noStroke,
   strokeWeight: strokeWeight,
-  line: line,
+  // line: line,
   ellipse: ellipse,
   arc: arc,
   drawPoly: drawPoly,
