@@ -210,6 +210,13 @@ const mapRange = function mapRange (value, u, v, x, y) {
   return lerp(x, y, (value - u) / (v - u));
 }
 
+function getValueFromRangeMapping (value, rangeA, rangeB) {
+  return (value-rangeA[0]) / ([rangeA[1]]-rangeA[0]) * (rangeB[1] - rangeB[0]) + rangeB[0];
+}
+
+// const mapRange = (t, a, b, c, d) => (t-a) / (b-a) * (d - c) + c;
+
+
 /* start window exports */
 /**
  * Polutes the global scope with unnamespaced functions

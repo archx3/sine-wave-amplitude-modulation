@@ -29,18 +29,21 @@ function clamp (value, min = 0, max = 1.0) {
   return Math.min(Math.max(value, min), max);
 }
 
-const GRG_IN_SF = document.getElementById('grg-in-sf');
+// const GRG_IN_SF = document.getElementById('grg-in-sf');
 
-const { width : IMAGE_WIDTH, height : IMAGE_HEIGHT } = GRG_IN_SF;
-const WIDTH = PAPER.clientWidth;
-const HEIGHT = PAPER.clientHeight;
+// const { width : IMAGE_WIDTH, height : IMAGE_HEIGHT } = GRG_IN_SF;
+const WIDTH = 800;
+const HEIGHT = 800;
 
-const VERTICAL_DIVISIONS = 30;
+const VERTICAL_DIVISIONS = 15;
 const VERTICAL_DIVISION_HEIGHT = HEIGHT / VERTICAL_DIVISIONS ;
-const FREQUENCY = 50;
-const MAX_AMPLITUDE = VERTICAL_DIVISION_HEIGHT;
+const FREQUENCY = 100;
+const MAX_AMPLITUDE = VERTICAL_DIVISION_HEIGHT / 3;
 
+let time = 0; // we need to track our animation over time the frames
+const PHASE = time / 5; // or frameCount / 30, i.e. 30 frames per second
 
+// region creating gradient
 const GRADIENT = PEN.createLinearGradient(0, 0, WIDTH, 0);
 GRADIENT.addColorStop(0, colors[0]);
 GRADIENT.addColorStop(1, colors[7]);
@@ -49,6 +52,8 @@ const NUMBER_OF_STOPS = 10;
 for (let i = 0; i < NUMBER_OF_STOPS; i++) {
   GRADIENT.addColorStop(clamp(10 / (NUMBER_OF_STOPS * i)), colors[i]);
 }
+
+// endregion
 
 function initializeCanvas (image) {
   const width = PAPER.clientWidth,
@@ -88,50 +93,38 @@ function createShadowCanvasFromImage (image) {
 
 function drawWave (firstPoint, y) {
   let previousPoint = firstPoint;
+  // Object.assign(previousPoint, firstPoint);
+  const PHASE = time / 5; // or frameCount / 30, i.e. 30 frames per second
   // we're going to draw a sine wave as long as the canvas is wide
   for (let x = 0; x < WIDTH; x++) {
-    const ANGLE = mapRange(x, 0, WIDTH, 0, Math.PI * 2);
-
-    // const MAX_AMPLITUDE = IMAGE_HEIGHT / 10;
-    // const MODULATED_AMPLITUDE = mapRange(x, 0, IMAGE_WIDTH, 0, MAX_AMPLITUDE);
-    const MODULATED_AMPLITUDE = MAX_AMPLITUDE;
-    // const MODULATED_AMPLITUDE = mapRange(Math.sin(ANGLE * FREQUENCY / 7), -1, 1, 0, MAX_AMPLITUDE);
-
-    const PHASE = time / 5; // or frameCount / 30, i.e. 30 frames per second
-
-    // const SIN_VALUE = Math.sin(ANGLE * FREQUENCY);
+    const ANGLE = getValueFromRangeMapping(x, [0, WIDTH], [0, Math.PI * 2]);
     const SIN_VALUE = Math.sin(PHASE + ANGLE * FREQUENCY); // adding a phase shift to the sine wave
 
-    // const y = IMAGE_HEIGHT / 2 + SIN_VALUE * MODULATED_AMPLITUDE;
+    const grayScaleIndex = Math.floor(y) * WIDTH + x
 
+    // console.log( grayScaleIndex, )
+    const AMPLITUDE = getValueFromRangeMapping(grayScaleIndex, [0, 255], [ 0, MAX_AMPLITUDE,]);
+    // const _AMPLITUDE = mapRange(grayScaleIndex, 0, 255, MAX_AMPLITUDE, 0);
+    const MODULATED_AMPLITUDE = getValueFromRangeMapping(Math.sin(ANGLE * FREQUENCY / 7), [-1, 1], [0, MAX_AMPLITUDE]);
+
+    console.log({ grayScaleIndex, AMPLITUDE, MODULATED_AMPLITUDE })
+    // const MODULATED_AMPLITUDE = 0;
     const point = { x, y : y + SIN_VALUE * MODULATED_AMPLITUDE};
 
-    // let's create a linear gradient from the left to the right and add random stops based on modulated amplitude
-
-
-    // drawLine(PEN, previousPoint, point, GRADIENT);
     drawLine(PEN, previousPoint, point);
     previousPoint = point;
 
   }
 }
 
-let time = 0; // we need to track our animation over time the frames
+
 const draw = function draw () {
   paintBackground(PEN, 255, 255, 255, 1, WIDTH, HEIGHT);
-  let previousPoint = { x: -1, y: HEIGHT / 2 };
-
-  drawWave( previousPoint);
-
-
 
   for (let div = 0; div < VERTICAL_DIVISIONS; div++) {
     const y = (VERTICAL_DIVISION_HEIGHT / 2) + div * VERTICAL_DIVISION_HEIGHT;
-    // const y = div * VERTICAL_DIVISION_HEIGHT;
-    // let FIRST_POINT = { x: -1, y };
-
-    drawWave(Object.assign({}, { x: -1, y }), y);
-    // drawLine(PEN, { x : 0, y }, { x : WIDTH, y });
+    // console.log({ y })
+    drawWave({ x: -1, y }, y);
   }
 
   time++;
@@ -140,20 +133,23 @@ const draw = function draw () {
 
 function init () {
 
-  const {
-  PIXEL_CANVAS,
-  PIXEL_BRUSH,
-  IMAGE_DATA,
-  PIXELS,
-  COMPRESSED_PIXELS
-} = createShadowCanvasFromImage(GRG_IN_SF);
+  const IMAGE = new Image();
+  IMAGE.src = 'img/grg-in-osu.jpg';
 
-  initializeCanvas({ width : WIDTH, height : HEIGHT });
+  IMAGE.onload = () => {
+    const {
+      PIXEL_CANVAS,
+      PIXEL_BRUSH,
+      IMAGE_DATA,
+      PIXELS,
+      COMPRESSED_PIXELS
+    } = createShadowCanvasFromImage(IMAGE);
 
-  draw();
+    initializeCanvas({ width : WIDTH, height : HEIGHT });
+
+    draw();
+  }
 }
-
-// GRG_IN_SF.addEventListener('load', () => {});
 
 document.addEventListener('readystatechange', () => {
   if (document.readyState === 'complete') {
