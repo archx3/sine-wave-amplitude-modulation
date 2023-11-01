@@ -14,19 +14,87 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
 
+
   <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="css/slider.css">
+  <link rel="stylesheet" href="css/color-picker.css">
 </head>
 
 <body>
-  <div class="container">
-<!--    <div class="image-preview preview">-->
-<!--      <img src="img/grg-in-osu.jpg" alt="George in San Francisco" id="grg-in-sf"/>-->
-<!--    </div>-->
-    <canvas class="canvas preview paper" id="paper"></canvas>
-  </div>
-  <img src="img/grg-in-osu.jpg" alt="George in San Francisco" id="grg-in-sf"/>
+<div class="container">
+<!--  <div class="image-preview preview">-->
+<!--    <img src="img/grg-in-osu.jpg" alt="George in San Francisco" id="grg-in-sf"/>-->
+<!--  </div>-->
+  <canvas class="canvas preview paper" id="paper"></canvas>
+</div>
 
-  <script src="js/manacles.js"></script>
-  <script src="js/main.js"></script>
+<div class="control-panel">
+  <div class="tool-controls-strip">
+    <div class="waves-slider">
+      <div class="tick-slider">
+        <div class="tick-slider-value-container" id="weightValues">
+          <div id="weightLabelMin" class="tick-slider-label min"></div>
+          <div id="weightLabelMax" class="tick-slider-label max"></div>
+          <div id="weightValue" class="tick-slider-value"></div>
+        </div>
+
+        <div class="handles">
+          <div id="weightProgress" class="tick-slider-progress"></div>
+          <div id="weightTicks" class="tick-slider-tick-container"></div>
+          <input
+              id="waves-count"
+              class="tick-slider-input"
+              type="range"
+              min="20"
+              max="60"
+              step="10"
+              value="20"
+              data-tick-step="10"
+              data-tick-id="weightTicks"
+              data-value-id="weightValue"
+              data-values-container-id="weightValues"
+              data-progress-id="weightProgress"
+              data-handle-size="18"
+              data-min-label-id="weightLabelMin"
+              data-max-label-id="weightLabelMax"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="color-picker" id="color-picker">
+      <div class="colors">
+      </div>
+      <div class="color-tools">
+        <div class="set-foreground color"></div>
+        <div class="set-background color"></div>
+       <div class="swap-foreground-background">
+         <div class="color foreground"></div>
+         <div class="color background"></div>
+       </div>
+      </div>
+    </div>
+  </div>
+  <div class="tool-box">
+    <div class="tool">
+      <button class="choose-waves-count" id="choose-waves-count">
+        <img src="/img/frequency.svg" alt="Frequency Icon">
+      </button>
+    </div>
+    <div class="tool divider"></div>
+    <div class="tool ">
+      <button class="pick-color" id="pick-color"></button>
+    </div>
+  </div>
+</div>
+<!--      <div class="tick-slider-background"></div>-->
+<!--      <div id="weightProgress" class="tick-slider-progress"></div>-->
+<!--  <img src="img/grg-in-osu.jpg" alt="George in San Francisco" id="grg-in-sf"/>-->
+
+<script src="js/manacles.js"></script>
+<script src="js/main.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/color-picker.js"></script>
+<script src="js/modulator.js"></script>
+<script src="js/controls.js"></script>
 </body>
 </html>
