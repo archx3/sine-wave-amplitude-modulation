@@ -1,0 +1,122 @@
+.color-picker {
+  display: flex;
+  flex-direction: row;
+  min-width: 60px;
+  //padding: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  $per-row: 4;
+  $color-cell-size: 20px;
+
+  .colors {
+    display: flex;
+    width: calc(#{$per-row} * #{$color-cell-size} + #{$per-row} * 2px);
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+  }
+
+  .color-tools {
+    margin-left: 7px;
+    display: flex;
+    flex-basis: fit-content;
+    flex-direction: column;
+
+    .set-foreground, .set-background {
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .set-foreground {
+      background-color: var(--foreground-color);
+      margin-bottom: 5px;
+    }
+
+    .set-background {
+      background-color: var(--background-color);
+      margin-bottom: 5px;
+    }
+
+    .swap-foreground-background {
+      position: relative;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+
+      .foreground, .background {
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin: 0;
+      }
+
+      .foreground {
+        background-color: var(--foreground-color);
+        top: 0;
+        z-index: 2;
+        border: 1px solid #000;
+      }
+
+      .background {
+        background-color: var(--background-color);
+        top: 7px;
+        left: 7px;
+        z-index: 1;
+        border-color: transparent;
+      }
+
+      &::before {
+        content: "";
+        background-image: url("../img/rotate-top-right.svg");
+        background-size: 9px;
+        background-repeat: no-repeat;
+
+        -ms-background-position-x: calc(100% + 1px);
+        background-position-x: calc(100%);
+
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 20px;
+        left: 0;
+        //top: 0;
+        //left: 0;
+        //background-color: rgba(0, 0, 0, 0.5);
+        //border-radius: 50%;
+        z-index: 3;
+      }
+    }
+  }
+
+  .color {
+    flex-basis: 1;
+    //display: flex;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin: 1px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid rgb(255, 255, 255, .5);
+    }
+
+    &:active {
+      border: 1px solid rgb(255, 255, 255, .8);
+    }
+
+    &.selected {
+      border: 1px solid rgb(255, 255, 255, 1);
+    }
+  }
+}
