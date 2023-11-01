@@ -45,7 +45,11 @@ var fill = function fill (ctx) {
   var b = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
   var a = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 255;
 
-  ctx.fillStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+  if (typeof r === 'string') {
+    ctx.fillStyle = r;
+  } else {
+    ctx.fillStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+  }
 };
 
 var noFill = function noFill (ctx) {
@@ -64,8 +68,13 @@ var noFill = function noFill (ctx) {
  * @param {number} [h=500] - The height of the canvas context.
  */
 const paintBackground = function paintBackground (ctx, r = 0, g = 0, b = 0, a = 255, w = 500, h = 500) {
-  fill(ctx, r, g, b, a);
-  ctx.fillRect(0, 0, w, h);
+  if (typeof r === 'string' && arguments.length === 4) {
+    fill(ctx, r);
+    ctx.fillRect(0, 0, g, b);
+  } else {
+    fill(ctx, r, g, b, a);
+    ctx.fillRect(0, 0, w, h);
+  }
 };
 
 /**
