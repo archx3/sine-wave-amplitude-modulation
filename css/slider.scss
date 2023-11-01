@@ -1,0 +1,221 @@
+/*@import url("https://fonts.googleapis.com/css?family=Hind+Madurai:300,600|Poppins:300&display=swap");*/
+
+:root {
+  --yellow: #ffd049;
+  --light-yellow: #fdf2d2;
+  --orange: #ff6a00;
+  --teal: #00ffd4;
+  --light-gray: #e3e4e8;
+  --gray: #71738b;
+  --light-blue: #7a7c93;
+  --blue: #34385a;
+
+  --slider-handle-size: 14px;
+  --slider-handle-width: 3px;
+  --slider-handle-height: 14px;
+
+  --slider-handle-border-radius: 2px;
+  --slider-handle-margin-top: -4px;
+  --slider-track-height: 6px;
+  --slider-track-border-radius: 4px;
+}
+
+@keyframes bulge {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*
+
+    REMOVE SLIDER STYLE DEFAULTS
+
+*/
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  height: 100%;
+
+  background: transparent;
+  outline: none;
+
+  /*margin: 5px 0;*/
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+
+    border: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::-webkit-slider-thumb, &::-moz-range-thumb {
+    width: var(--slider-handle-width);
+    height: var(--slider-handle-height);
+    background: var(--teal);
+    border-radius: var(--slider-handle-border-radius);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+
+    margin-top: var(--slider-handle-margin-top);
+
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: none;
+  }
+
+  &:hover::-webkit-slider-thumb, &:focus::-webkit-slider-thumb {
+    transform: scale(1.2);
+  }
+
+  &:hover::-moz-range-thumb, &:focus::-moz-range-thumb {
+    transform: scale(1.3);
+  }
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+  }
+
+  &::-moz-range-track {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  &:focus::-webkit-slider-runnable-track {
+    background: none;
+  }
+
+  &:active::-webkit-slider-runnable-track {
+    background: none;
+  }
+}
+
+.handles {
+  position: relative;
+  height: 14px;
+}
+
+.tick-slider {
+  position: relative;
+  width: 100%;
+
+  &-value-container {
+    position: relative;
+    width: 100%;
+    height: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-family: "Hind Madurai", sans-serif;
+    font-size: 18px;
+    color: var(--gray);
+  }
+
+  &-value {
+    position: absolute;
+    font-weight: bold;
+    color: var(--white);
+    border-radius: var(--slider-handle-border-radius);
+    z-index: 2;
+
+    > div {
+      animation: bulge 0.3s ease-out;
+    }
+  }
+
+  &-background, &-progress, &-tick-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: var(--slider-track-height);
+    pointer-events: none;
+    border-radius: var(--slider-track-border-radius);
+    z-index: -1;
+  }
+
+  &-background {
+    width: 100%;
+    height: 10px;
+    background-color: transparent;
+    display: none;
+  }
+
+  &-progress {
+    background-color: rgba(0, 255, 212, 0.38);
+    height: 10px;
+  }
+
+  &-tick-container {
+    width: 100%;
+    height: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+  }
+
+  &-tick {
+    width: 1px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: white;
+    margin-bottom: auto;
+    margin-top: auto;
+
+    &.minor-tick {
+      width: 1px;
+      height: 5px;
+      background-color: var(--light-blue);
+    }
+  }
+}
+
+.tick-slider-label {
+  opacity: 0.85;
+  transition: opacity 0.1s ease;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+
+  &.min, &.max {
+    display: none;
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+

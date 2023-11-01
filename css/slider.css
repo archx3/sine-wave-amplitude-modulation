@@ -1,0 +1,185 @@
+/*@import url("https://fonts.googleapis.com/css?family=Hind+Madurai:300,600|Poppins:300&display=swap");*/
+:root {
+  --yellow: #ffd049;
+  --light-yellow: #fdf2d2;
+  --orange: #ff6a00;
+  --teal: #00ffd4;
+  --light-gray: #e3e4e8;
+  --gray: #71738b;
+  --light-blue: #7a7c93;
+  --blue: #34385a;
+  --slider-handle-size: 14px;
+  --slider-handle-width: 3px;
+  --slider-handle-height: 14px;
+  --slider-handle-border-radius: 2px;
+  --slider-handle-margin-top: -4px;
+  --slider-track-height: 6px;
+  --slider-track-border-radius: 4px;
+}
+
+@keyframes bulge {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/*
+
+    REMOVE SLIDER STYLE DEFAULTS
+
+*/
+input[type=range] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  /*margin: 5px 0;*/
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+input[type=range]::-webkit-slider-thumb, input[type=range]::-moz-range-thumb {
+  width: var(--slider-handle-width);
+  height: var(--slider-handle-height);
+  background: var(--teal);
+  border-radius: var(--slider-handle-border-radius);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: var(--slider-handle-margin-top);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+}
+input[type=range]:hover::-webkit-slider-thumb, input[type=range]:focus::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+input[type=range]:hover::-moz-range-thumb, input[type=range]:focus::-moz-range-thumb {
+  transform: scale(1.3);
+}
+input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+}
+input[type=range]::-moz-range-track {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: none;
+}
+input[type=range]:active::-webkit-slider-runnable-track {
+  background: none;
+}
+
+.handles {
+  position: relative;
+  height: 14px;
+}
+
+.tick-slider {
+  position: relative;
+  width: 100%;
+}
+.tick-slider-value-container {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: "Hind Madurai", sans-serif;
+  font-size: 18px;
+  color: var(--gray);
+}
+.tick-slider-value {
+  position: absolute;
+  font-weight: bold;
+  color: var(--white);
+  border-radius: var(--slider-handle-border-radius);
+  z-index: 2;
+}
+.tick-slider-value > div {
+  animation: bulge 0.3s ease-out;
+}
+.tick-slider-background, .tick-slider-progress, .tick-slider-tick-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: var(--slider-track-height);
+  pointer-events: none;
+  border-radius: var(--slider-track-border-radius);
+  z-index: -1;
+}
+.tick-slider-background {
+  width: 100%;
+  height: 10px;
+  background-color: transparent;
+  display: none;
+}
+.tick-slider-progress {
+  background-color: rgba(0, 255, 212, 0.38);
+  height: 10px;
+}
+.tick-slider-tick-container {
+  width: 100%;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+.tick-slider-tick {
+  width: 1px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: white;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+.tick-slider-tick.minor-tick {
+  width: 1px;
+  height: 5px;
+  background-color: var(--light-blue);
+}
+
+.tick-slider-label {
+  opacity: 0.85;
+  transition: opacity 0.1s ease;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+}
+.tick-slider-label.min, .tick-slider-label.max {
+  display: none;
+}
+.tick-slider-label.hidden {
+  opacity: 0;
+}
+
+/*# sourceMappingURL=slider.css.map */
