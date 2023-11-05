@@ -121,13 +121,7 @@ function init () {
   IMAGE.src = 'img/grg-in-osu.jpg';
 
   IMAGE.onload = () => {
-    const {
-      PIXEL_CANVAS,
-      PIXEL_BRUSH,
-      IMAGE_DATA,
-      PIXELS,
-      COMPRESSED_PIXELS
-    } = createShadowCanvasFromImage(IMAGE);
+    createShadowCanvasFromImage(IMAGE);
 
     initializeCanvas({ width : WIDTH, height : HEIGHT });
 
