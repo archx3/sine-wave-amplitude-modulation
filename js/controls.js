@@ -17,6 +17,6 @@ CHOOSE_WAVES_COUNT.onclick = () => {
   COLOR_PICKER.style.display = "none";
 }
 
-WAVE_SLIDER_INPUT.onchange = (e) => {
+WAVE_SLIDER_INPUT.addEventListener("change",  function (e) {
   VERTICAL_DIVISIONS = parseInt(e.target.value, 10);
-}
+})
