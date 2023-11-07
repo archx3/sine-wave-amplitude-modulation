@@ -74,7 +74,7 @@
 
       &::before {
         content: "";
-        background-image: url("../img/rotate-top-right.svg");
+        background-image: url("../../../public/img/rotate-top-right.svg");
         background-size: 9px;
         background-repeat: no-repeat;
 
@@ -108,11 +108,11 @@
     cursor: pointer;
 
     &:hover {
-      border: 1px solid rgb(255, 255, 255, .5);
+      border: 1px solid rgb(255, 255, 255, .7);
     }
 
     &:active {
-      border: 1px solid rgb(255, 255, 255, .8);
+      border: 1px solid rgb(255, 255, 255, .85);
     }
 
     &.selected {
