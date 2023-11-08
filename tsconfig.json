@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@/component/*": ["./src/*"],
+      "@config/*": ["./src/config/*"],
       "@/views/*": ["./src/views/*"],
       "@/img/*": ["./public/*"],
       "@/utils/*": ["./src/helpers/*"],
