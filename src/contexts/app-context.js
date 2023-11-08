@@ -13,6 +13,8 @@ const initialState = {
   FOREGROUND_COLOR: "#ffffff",
   BACKGROUND_COLOR: "#000000",
 
+  SWATCH_COLOR_PALETTE: "DEFAULT",
+
   frameCount: 0,
 };
 
@@ -57,6 +59,8 @@ export function AppContextProvider ({ children }) {
           FOREGROUND_COLOR: state.BACKGROUND_COLOR,
           BACKGROUND_COLOR: state.FOREGROUND_COLOR
         };
+      case 'SET_SWATCH_COLOR_PALETTE':
+        return { ...state, SWATCH_COLOR_PALETTE: payload };
       default:
         throw new Error("App Context Error: Invalid action type.");
     }
