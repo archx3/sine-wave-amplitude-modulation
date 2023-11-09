@@ -13,7 +13,8 @@
     display: flex;
     width: calc(#{$per-row} * #{$color-cell-size} + #{$per-row} * 2px);
     flex-direction: row;
-    justify-content: space-between;
+    //justify-content: space-between;
+    justify-content: start;
     flex-wrap: wrap;
 
   }
