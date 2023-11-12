@@ -104,7 +104,7 @@ export default function Canvas () {
     const render = () => {
       frameCount++
       draw(PEN, frameCount)
-      // animationFrameId = window.requestAnimationFrame(render)
+      animationFrameId = window.requestAnimationFrame(render)
     }
     render()
 
