@@ -8,6 +8,7 @@ import "../assets/styles/normalize.css"
 import "../assets/styles/main.scss"
 import "../assets/styles/slider.scss"
 import "../assets/styles/color-picker.scss"
+import "../components/File/FileInput.scss"
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,9 +16,6 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout ({ children, }: { children: React.ReactNode }) {
-
-
-
   return (
     <html lang="en">
     <body className={inter.className}>{children}</body>
