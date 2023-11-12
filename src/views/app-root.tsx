@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import Canvas from "@/component/components/canvas/canvas";
 import useImageDataContext from "@/component/hooks/use-image-data";
 import ControlPanel from "@/component/components/control-panel";
 
-
+/**
+ * Creates a shadow canvas from an image.
+ * @param image {CanvasImageSource}
+ * @returns {{COMPRESSED_PIXELS: unknown[], PIXEL_CANVAS: HTMLCanvasElement, IMAGE_DATA: ImageData, PIXELS: Uint8ClampedArray, PIXEL_BRUSH: CanvasRenderingContext2D}}
+ */
 function createShadowCanvasFromImage (image : HTMLImageElement) {
   // @ts-ignore
   const { width, height } = image;
@@ -32,6 +36,32 @@ function createShadowCanvasFromImage (image : HTMLImageElement) {
   return { IMAGE_DATA, COMPRESSED_PIXELS };
 }
 
+const initialState = {
+  OBJECT_DRAGGED_OVER_APP: false,
+  IMAGE_RENDERED: false,
+};
+
+interface State {
+  OBJECT_DRAGGED_OVER_APP?: any;
+}
+
+interface Action {
+  payload: any;
+  type: 'OBJECT_DRAGGED_OVER_APP' | 'IMAGE_RENDERED';
+}
+
+function reducer (state: State, action: Action) {
+  const { type, payload } = action;
+  switch (type) {
+    case 'OBJECT_DRAGGED_OVER_APP':
+      return { ...state, OBJECT_DRAGGED_OVER_APP: payload, };
+    case 'IMAGE_RENDERED':
+      return { ...state, IMAGE_RENDERED: payload, };
+    default:
+      return state;
+  }
+}
+
 export default function AppRoot () {
   let imageSrc = '/img/grg-in-osu.jpg';
 
@@ -46,12 +76,10 @@ export default function AppRoot () {
     setError,
   } = useImageDataContext();
 
-  /**
-   * Creates a shadow canvas from an image.
-   * @param image {CanvasImageSource}
-   * @returns {{COMPRESSED_PIXELS: unknown[], PIXEL_CANVAS: HTMLCanvasElement, IMAGE_DATA: ImageData, PIXELS: Uint8ClampedArray, PIXEL_BRUSH: CanvasRenderingContext2D}}
-   */
-
+  const [{
+    OBJECT_DRAGGED_OVER_APP,
+    IMAGE_RENDERED,
+  }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const IMAGE = new Image();
@@ -81,26 +109,7 @@ export default function AppRoot () {
     <div>
       <div className="container">
         {
-          !imageLoading && !imageLoadError && compressedPixelArray !== null ? (
-            <Canvas/>
-          ) : null
-        }
 
-        {
-          !imageLoading && imageLoadError && (
-            <div className="error">
-              <h1>Image failed to load</h1>
-              <p>Try refreshing the page</p>
-            </div>
-          )
-        }
-
-        {
-          imageLoading || !compressedPixelArray ? (
-            <div className="loading">
-              <h1>Loading image...</h1>
-            </div>
-          ) : null
         }
       </div>
       <ControlPanel/>
