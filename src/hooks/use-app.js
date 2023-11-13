@@ -17,6 +17,7 @@ export default function useAppContext() {
     MAX_AMPLITUDE: store.MAX_AMPLITUDE,
     FOREGROUND_COLOR: store.FOREGROUND_COLOR,
     BACKGROUND_COLOR: store.BACKGROUND_COLOR,
+    SWATCH_COLOR_PALETTE: store.SWATCH_COLOR_PALETTE,
     frameCount: store.frameCount,
 
     setWidth: (payload) => {
@@ -51,6 +52,9 @@ export default function useAppContext() {
     },
     swapForegroundBackground: () => {
       dispatch({type: 'SWAP_FOREGROUND_BACKGROUND'});
+    },
+    setSwatchColorPalette: (payload) => {
+      dispatch({type: 'SET_SWATCH_COLOR_PALETTE', payload});
     },
   }
 }
