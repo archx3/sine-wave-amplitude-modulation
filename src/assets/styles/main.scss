@@ -410,3 +410,10 @@ body {
 .d-none {
   display: none;
 }
+
+.drag-over {
+  border: 1px dashed #fff;
+  height: 100%;
+  width: 100%;
+  background-color: var(--charcoal);
+}

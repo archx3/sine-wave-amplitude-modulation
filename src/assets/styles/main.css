@@ -237,6 +237,17 @@ body {
   background-color: #000000;
 }
 
+:root {
+  --white: #fff;
+  --black: #000;
+  --charcoal: #333;
+  --padding: 5px;
+  --control-panel-border-radius: 30px;
+  --control-panel-padding: 10px;
+  --foreground-color: #ffbe11;
+  --background-color: #00ff00;
+}
+
 .container {
   position: relative;
   width: calc(100vw - 100px);
@@ -343,6 +354,13 @@ body {
 
 .d-none {
   display: none;
+}
+
+.drag-over {
+  border: 1px dashed #fff;
+  height: 100%;
+  width: 100%;
+  background-color: var(--charcoal);
 }
 
 /*# sourceMappingURL=main.css.map */
